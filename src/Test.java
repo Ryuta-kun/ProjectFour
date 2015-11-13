@@ -6,6 +6,6 @@ public class Test {
         System.out.println("just testing intellij");
         System.out.println("Just Testing Intellij");
         System.out.println("Testing auto commit method");
-        //hello
+        //helloooo
     }
 }
