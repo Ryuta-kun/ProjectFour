@@ -7,5 +7,6 @@ public class Test {
         System.out.println("Just Testing Intellij");
         System.out.println("Testing auto commit method");
         //helloooo
+        System.out.println("Commiting via VCS tab");
     }
 }
