@@ -27,7 +27,18 @@ public class LinkList<E> {
 
         Node<E> temp = top;
         while (temp != null) {
-            System.out.println (temp.getData());
+            System.out.print("\t" + temp.getData());
+            temp = temp.getNext();
+        }
+    }
+
+    public void displayCounter(){
+        int count = 0;
+
+        Node<E> temp = top;
+        while (temp != null) {
+            System.out.print("\t" + count);
+            count++;
             temp = temp.getNext();
         }
     }
