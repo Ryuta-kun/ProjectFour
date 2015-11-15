@@ -8,5 +8,6 @@ public class Test {
         System.out.println("Testing auto commit method");
         //helloooo
         System.out.println("Commiting via VCS tab");
+        //so i was able to successfully commit and push something.
     }
 }
