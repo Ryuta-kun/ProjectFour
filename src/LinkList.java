@@ -1,10 +1,12 @@
+import java.util.List;
+
 /**
  * Created by Lanndon on 11/15/2015.
  */
-public class LinkListFirst<E> {
+public class LinkList<E> {
     private Node<E> top;
 
-    public LinkListFirst() {
+    public LinkList() {
         top = null;   // 0000
     }
 
@@ -74,9 +76,11 @@ public class LinkListFirst<E> {
             top = top.getNext();
             return true;
         }
-
-        // not done yet.
-
+        Node<E> temp = null;
+        while(temp.equals(data) == false){
+            temp = top.getNext();
+        }
+        top = temp.getNext();
 
 
         return true;
@@ -90,8 +94,8 @@ public class LinkListFirst<E> {
 
 
     public static void main (String[] args){
-        LinkListFirst<String> list = new
-                LinkListFirst<String>();
+        LinkList<String> list = new
+                LinkList<String>();
 
         list.addAtEnd("pizza5");
         list.addfirst("pizza1");
