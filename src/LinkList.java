@@ -111,21 +111,18 @@ public class LinkList<E> {
         if (top == null) {
 
         }
-
         if (pos == 0) {
-                top = top.getNext();
-
+            top = top.getNext();
         }
         else {
-                Node<E> temp = null;
-                int counter = 0;
-                while (counter < (pos - 1)) {
-                    temp = top.getNext();
-                    counter++;
-                }
-                top = temp.getNext().getNext();
-
+            Node<E> temp = top;
+            int counter = 0;
+            while (counter < (pos - 1)) {
+                temp = temp.getNext();
+                counter++;
             }
+            temp.setNext(temp.getNext().getNext());
+        }
         String str = "";
         Node<E> temp2 = top;
         while (temp2 != null) {

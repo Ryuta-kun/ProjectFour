@@ -5,9 +5,11 @@ import java.util.Scanner;
  */
 public class Mix implements IMix {
     private LinkList<Character> message;
+    private Scanner sc;
 
     public Mix(){
         message = new LinkList<Character>();
+        sc = new Scanner(System.in);
     }
 
     @Override
@@ -29,7 +31,7 @@ public class Mix implements IMix {
             String str = this.message.change(command.charAt(2), num);
             return str;
         }else if (command.charAt(0) == 'r'){
-             int numr = Integer.parseInt(command.substring(2));
+            int numr = Integer.parseInt(command.substring(2));
             String str2 = this.message.delete(numr);
             return str2;
         }else if (command.charAt(0) == 'x'){
@@ -60,14 +62,13 @@ public class Mix implements IMix {
 
         //asks the user to enter the secret message
         System.out.println("\nEnter in initial message to mix up");
-        Scanner sc = new Scanner(System.in);
-        String message = sc.nextLine();
+        String message = m.sc.nextLine();
         System.out.println("\nMessage: \n");
         m.setInitialMessage(message);
 
         //Asking user to enter the command
         System.out.print("\nCommand: ");
-        message = sc.nextLine();
+        message = m.sc.nextLine();
 
         if(!message.equals("Q")) {
             String overall = m.processCommand(message);
@@ -76,7 +77,7 @@ public class Mix implements IMix {
 
             while (!message.equals("Q")) {
                 System.out.print("\nCommand: ");
-                message = sc.nextLine();
+                message = m.sc.nextLine();
                 if (!message.equals("Q")) {
                     overall = m.processCommand(message);
                     System.out.println("\nMessage: \n");
