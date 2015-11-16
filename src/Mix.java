@@ -5,11 +5,12 @@ import java.util.Scanner;
  */
 public class Mix implements IMix {
     private LinkList<Character> message;
-    private Scanner sc;
+    private String commandos;
 
     public Mix(){
         message = new LinkList<Character>();
-        sc = new Scanner(System.in);
+        commandos = "";
+
     }
 
     @Override
@@ -41,9 +42,18 @@ public class Mix implements IMix {
         }else if (command.charAt(0) == 'c') {
 
         }else if (command.charAt(0) == 's'){
-
+            String str3 = getCommandos();
+            return str3;
         }
         return null;
+    }
+
+    public String getCommandos() {
+        return commandos;
+    }
+
+    public void setCommandos(String commandos) {
+        this.commandos += "\n" + commandos;
     }
 
     public static void main(String[] args){
@@ -62,31 +72,37 @@ public class Mix implements IMix {
 
         //asks the user to enter the secret message
         System.out.println("\nEnter in initial message to mix up");
-        String message = m.sc.nextLine();
+        Scanner sc = new Scanner(System.in);
+        String imessage = sc.nextLine();
         System.out.println("\nMessage: \n");
-        m.setInitialMessage(message);
+        m.setInitialMessage(imessage);
 
         //Asking user to enter the command
         System.out.print("\nCommand: ");
-        message = m.sc.nextLine();
+        String cmessage = sc.nextLine();
 
-        if(!message.equals("Q")) {
-            String overall = m.processCommand(message);
+        if(!cmessage.equals("Q")) {
+            m.setCommandos(cmessage);
+            String overall = m.processCommand(cmessage);
             System.out.println("\nMessage: \n");
             m.setInitialMessage(overall);
 
-            while (!message.equals("Q")) {
+            while (!cmessage.equals("Q")) {
                 System.out.print("\nCommand: ");
-                message = m.sc.nextLine();
-                if (!message.equals("Q")) {
-                    overall = m.processCommand(message);
+                cmessage = sc.nextLine();
+                if (cmessage.charAt(0) == 's'){
+                    String saves = m.processCommand(cmessage);
+                    System.out.println(saves);
+                }else if (!cmessage.equals("Q")) {
+                    m.setCommandos(cmessage);
+                    overall = m.processCommand(cmessage);
                     System.out.println("\nMessage: \n");
                     m.setInitialMessage(overall);
                 }
             }
             System.out.println("\nFinal message: " + overall);
         }else{
-            System.out.println("Final message: " + message);
+            System.out.println("Final message: " + imessage);
         }
     }
 }
