@@ -24,7 +24,7 @@ public class LinkList<E> {
         //				System.out.println (top.getData());
         //				System.out.println (top.getNext().getData());
         //				System.out.println (top.getNext().getNext().getData());
-
+        String str = "";
         Node<E> temp = top;
         while (temp != null) {
             System.out.print("\t" + temp.getData());
@@ -43,6 +43,35 @@ public class LinkList<E> {
         }
     }
 
+    public String change(E data, int pos){
+        if (top == null) {
+            top = new Node<E> (data, top);
+        }else {
+            int counter = 0;
+            Node<E> temp1 = top;
+            if(pos == 0) {
+                addfirst(data);
+            }else{
+                while (counter < (pos - 1)) {
+                    counter++;
+                    temp1 = temp1.getNext();
+                }
+                Node add = new Node();
+                add.setData(data);
+                add.setNext(temp1.getNext());
+                temp1.setNext(add);
+            }
+        }
+
+        String str = "";
+        Node<E> temp = top;
+        while (temp != null) {
+            str += (temp.getData());
+            temp = temp.getNext();
+        }
+        return str;
+    }
+
     public int count() {
         int count = 0;
 
@@ -51,7 +80,6 @@ public class LinkList<E> {
             count++;
             temp = temp.getNext();
         }
-
 
         return count;
     }
