@@ -6,6 +6,7 @@ import java.util.List;
 public class LinkList<E> {
     private Node<E> top;
     private Node<E> tail;
+    private Node<E> removed;
 
     public LinkList() {
         top = null;   // 0000
@@ -127,6 +128,7 @@ public class LinkList<E> {
                 temp = temp.getNext();
                 counter++;
             }
+            removed = temp.getNext();
             temp.setNext(temp.getNext().getNext());
             if (temp.getNext() == null){
                 tail = temp;
@@ -138,13 +140,20 @@ public class LinkList<E> {
         while (temp2 != null) {
             str += (temp2.getData());
             temp2 = temp2.getNext();
-
         }
         return str;
     }
 
-    public void deleteHalfWay() {
+    public void dleteHalfWay() {
 
 
+    }
+
+    public Node<E> getRemoved() {
+        return removed;
+    }
+
+    public void setRemoved(Node<E> removed) {
+        this.removed = removed;
     }
 }

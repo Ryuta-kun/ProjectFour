@@ -6,10 +6,12 @@ import java.util.Scanner;
 public class Mix implements IMix {
     private LinkList<Character> message;
     private String commandos;
+    private String removed;
 
     public Mix(){
         message = new LinkList<Character>();
         commandos = "";
+        removed = "";
     }
 
     @Override
@@ -52,7 +54,13 @@ public class Mix implements IMix {
     }
 
     public void setCommandos(String commandos) {
-        this.commandos += "\n" + commandos;
+        String str = "";
+        if (commandos.charAt(0) == 'b'){
+            str = "r " + commandos.substring(4);
+        }else if (commandos.charAt(0) == 'r'){
+            str = "b " + message.getRemoved().getData() + " " + commandos.substring(2);
+        }
+        this.commandos += "\n" + str;
     }
 
     public static void main(String[] args){
@@ -93,8 +101,8 @@ public class Mix implements IMix {
                     String saves = m.processCommand(cmessage);
                     System.out.println(saves);
                 }else if (!cmessage.equals("Q")) {
-                    m.setCommandos(cmessage);
                     overall = m.processCommand(cmessage);
+                    m.setCommandos(cmessage);
                     System.out.println("\nMessage: \n");
                     m.setInitialMessage(overall);
                 }
