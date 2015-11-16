@@ -29,7 +29,9 @@ public class Mix implements IMix {
             String str = this.message.change(command.charAt(2), num);
             return str;
         }else if (command.charAt(0) == 'r'){
-
+             int numr = Integer.parseInt(command.substring(2));
+            String str2 = this.message.delete(numr);
+            return str2;
         }else if (command.charAt(0) == 'x'){
 
         }else if (command.charAt(0) == 'p'){

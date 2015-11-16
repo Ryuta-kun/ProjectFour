@@ -106,59 +106,38 @@ public class LinkList<E> {
     }
 
 
-    public boolean delete (E data) {
+    public String delete (int pos) {
 
-        if (top == null)
-            return false;
+        if (top == null) {
 
-        if (top.getData().equals(data)) {
-            top = top.getNext();
-            return true;
         }
-        Node<E> temp = null;
-        while(temp.equals(data) == false){
-            temp = top.getNext();
+
+        if (pos == 0) {
+                top = top.getNext();
+
         }
-        top = temp.getNext();
+        else {
+                Node<E> temp = null;
+                int counter = 0;
+                while (counter < (pos - 1)) {
+                    temp = top.getNext();
+                    counter++;
+                }
+                top = temp.getNext().getNext();
 
+            }
+        String str = "";
+        Node<E> temp2 = top;
+        while (temp2 != null) {
+            str += (temp2.getData());
+            temp2 = temp2.getNext();
 
-        return true;
-
+        }
+        return str;
     }
 
     public void deleteHalfWay() {
 
-
-    }
-
-
-    public static void main (String[] args){
-        LinkList<String> list = new
-                LinkList<String>();
-
-        list.addAtEnd("pizza5");
-        list.addfirst("pizza1");
-        list.addfirst("pizza2");
-        list.addfirst("pizza3");
-        list.addAtEnd("pizza4");
-
-        list.display();
-
-        list.delete("pizza1");
-        list.display();
-
-
-        //		list.addAtEnd("pizza11");
-
-        //		list.addfirst("pizza3");
-        //		list.addfirst("pizza4");
-        //		list.addfirst("pizza5");
-        //		list.addfirst("pizza6");
-        //		list.addfirst("pizza7");
-        //		list.addfirst("pizza8");
-        //		list.addAtEnd("pizza9");
-
-        //list.display();
 
     }
 }
