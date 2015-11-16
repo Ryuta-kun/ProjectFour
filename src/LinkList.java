@@ -5,14 +5,18 @@ import java.util.List;
  */
 public class LinkList<E> {
     private Node<E> top;
+    private Node<E> tail;
 
     public LinkList() {
         top = null;   // 0000
+        tail = null;
     }
 
     public void addfirst (E data) {
-
-        top = new Node<E> (data, top);
+        if (top == null)
+            tail = top = new Node<E> (data, top);
+        else
+            top = new Node<E> (data, top);
 
         //		    Node temp = new Node();
         //		    temp.setData(data);
@@ -60,6 +64,9 @@ public class LinkList<E> {
                 add.setData(data);
                 add.setNext(temp1.getNext());
                 temp1.setNext(add);
+                if (temp1.getNext() == null){
+                    tail = temp1.getNext();
+                }
             }
         }
 
@@ -87,20 +94,12 @@ public class LinkList<E> {
     public void addAtEnd (E data) {
 
         if (top == null) {
-            top = new Node<E> (data, top);
+            tail = top = new Node<E> (data, top);
         }
 
         else {
-            Node<E> temp = top;
-            while (temp.getNext() != null) {
-                temp = temp.getNext();
-            }
-
-            Node<E> temp2 = new Node<E>();
-            temp2.setData(data);
-            temp2.setNext(null);
-
-            temp.setNext(temp2);
+            tail.setNext(new Node<E>(data, null));
+            tail = tail.getNext();
         }
 
     }
@@ -111,9 +110,16 @@ public class LinkList<E> {
         if (top == null) {
 
         }
+
+        //check if top element is the target
         if (pos == 0) {
             top = top.getNext();
+            if (top.getNext() == null){
+                tail = null;
+            }
         }
+
+        //check if anyother than the top is the target
         else {
             Node<E> temp = top;
             int counter = 0;
@@ -122,7 +128,11 @@ public class LinkList<E> {
                 counter++;
             }
             temp.setNext(temp.getNext().getNext());
+            if (temp.getNext() == null){
+                tail = temp;
+            }
         }
+
         String str = "";
         Node<E> temp2 = top;
         while (temp2 != null) {

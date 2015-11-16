@@ -10,7 +10,6 @@ public class Mix implements IMix {
     public Mix(){
         message = new LinkList<Character>();
         commandos = "";
-
     }
 
     @Override
