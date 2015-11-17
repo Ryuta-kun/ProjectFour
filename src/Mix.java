@@ -33,13 +33,24 @@ public class Mix implements IMix {
         if (command.charAt(0) == 'b'){
             int num = Integer.parseInt(command.substring(4));
             String str = this.message.change(command.charAt(2), num);
+            setCommandos(command);
             return str;
         }else if (command.charAt(0) == 'r'){
             int numr = Integer.parseInt(command.substring(2));
             String str2 = this.message.delete(numr);
+            setCommandos(command);
+            System.out.println(str2);
             return str2;
         }else if (command.charAt(0) == 'x'){
-
+            String str = "";
+            int start = Integer.parseInt(command.substring(2,3));
+            int end = Integer.parseInt(command.substring(4));
+            System.out.println(start + "" + end);
+            for (int i = start; i <= end; i++){
+                str = this.message.delete(start);
+                //setCommandos(command);
+            }
+            return str;
         }else if (command.charAt(0) == 'p'){
 
         }else if (command.charAt(0) == 'c') {
@@ -107,7 +118,6 @@ public class Mix implements IMix {
 
         if(!cmessage.equals("Q")) {
             String overall = m.processCommand(cmessage);
-            m.setCommandos(cmessage);
             System.out.println("\nMessage: \n");
             m.setInitialMessage(overall);
 
@@ -120,7 +130,6 @@ public class Mix implements IMix {
                     //System.out.println(saves);
                 }else if (!cmessage.equals("Q")) {
                     overall = m.processCommand(cmessage);
-                    m.setCommandos(cmessage);
                     System.out.println("\nMessage: \n");
                     m.setInitialMessage(overall);
                 }
