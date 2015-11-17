@@ -114,6 +114,7 @@ public class LinkList<E> {
 
         //check if top element is the target
         if (pos == 0) {
+            removed = top;
             top = top.getNext();
             if (top.getNext() == null){
                 tail = null;

@@ -1,3 +1,7 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 /**
@@ -6,12 +10,10 @@ import java.util.Scanner;
 public class Mix implements IMix {
     private LinkList<Character> message;
     private String commandos;
-    private String removed;
 
     public Mix(){
         message = new LinkList<Character>();
         commandos = "";
-        removed = "";
     }
 
     @Override
@@ -44,10 +46,25 @@ public class Mix implements IMix {
 
         }else if (command.charAt(0) == 's'){
             String str3 = getCommandos();
+            save(str3, command.substring(2));
             return str3;
         }
         return null;
     }
+
+    public void save (String str, String filename) {
+        PrintWriter out = null;
+        try {
+            out = new PrintWriter(new BufferedWriter(new FileWriter(filename + ".txt")));
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        out.print(str);
+        out.close();
+    }
+
 
     public String getCommandos() {
         return commandos;
@@ -60,7 +77,7 @@ public class Mix implements IMix {
         }else if (commandos.charAt(0) == 'r'){
             str = "b " + message.getRemoved().getData() + " " + commandos.substring(2);
         }
-        this.commandos += "\n" + str;
+        this.commandos += str + "\n";
     }
 
     public static void main(String[] args){
@@ -89,8 +106,8 @@ public class Mix implements IMix {
         String cmessage = sc.nextLine();
 
         if(!cmessage.equals("Q")) {
-            m.setCommandos(cmessage);
             String overall = m.processCommand(cmessage);
+            m.setCommandos(cmessage);
             System.out.println("\nMessage: \n");
             m.setInitialMessage(overall);
 
@@ -98,8 +115,9 @@ public class Mix implements IMix {
                 System.out.print("\nCommand: ");
                 cmessage = sc.nextLine();
                 if (cmessage.charAt(0) == 's'){
-                    String saves = m.processCommand(cmessage);
-                    System.out.println(saves);
+                    m.processCommand(cmessage);
+                    //String saves = m.processCommand(cmessage);
+                    //System.out.println(saves);
                 }else if (!cmessage.equals("Q")) {
                     overall = m.processCommand(cmessage);
                     m.setCommandos(cmessage);
