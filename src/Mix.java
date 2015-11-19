@@ -57,15 +57,17 @@ public class Mix implements IMix {
         }else if (command.charAt(0) == 'p'){
             String str = "";
             int start = Integer.parseInt(command.substring(2));
-            if (clipBoard != null){
-                System.out.println(clipBoard.length());
+            if (!clipBoard.equals("")){
+                System.out.println(clipBoard);
                 for (int i = 0; i < clipBoard.length(); i ++){
                     str = this.message.change(clipBoard.charAt(i), start);
                     start++;
                 }
+                setCommandos(command);
+                return str;
+            }else {
+                return this.message.toString();
             }
-            setCommandos(command);
-            return str;
         }else if (command.charAt(0) == 'c') {
             clipBoard = "";
             String [] values = command.split(" ");    //couldn't find another way to do it so

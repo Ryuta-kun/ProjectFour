@@ -18,23 +18,24 @@ public class LinkList<E> {
             tail = top = new Node<E> (data, top);
         else
             top = new Node<E> (data, top);
-
-        //		    Node temp = new Node();
-        //		    temp.setData(data);
-        //		    temp.setNext(top);
-        //		    top = temp;
     }
 
     public void display() {
-        //				System.out.println (top.getData());
-        //				System.out.println (top.getNext().getData());
-        //				System.out.println (top.getNext().getNext().getData());
-        String str = "";
         Node<E> temp = top;
         while (temp != null) {
             System.out.print("\t" + temp.getData());
             temp = temp.getNext();
         }
+    }
+
+    public String toString() {
+        String str = "";
+        Node<E> temp = top;
+        while (temp != null) {
+            str += temp.getData();
+            temp = temp.getNext();
+        }
+        return str;
     }
 
     public void displayCounter(){
