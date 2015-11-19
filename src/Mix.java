@@ -10,10 +10,12 @@ import java.util.Scanner;
 public class Mix implements IMix {
     private LinkList<Character> message;
     private String commandos;
+    private String clipBoard;
 
     public Mix(){
         message = new LinkList<Character>();
         commandos = "";
+        clipBoard = "";
     }
 
     @Override
@@ -39,22 +41,39 @@ public class Mix implements IMix {
             int numr = Integer.parseInt(command.substring(2));
             String str2 = this.message.delete(numr);
             setCommandos(command);
-            System.out.println(str2);
             return str2;
         }else if (command.charAt(0) == 'x'){
             String str = "";
-            int start = Integer.parseInt(command.substring(2,3));
-            int end = Integer.parseInt(command.substring(4));
-            System.out.println(start + "" + end);
+            clipBoard = "";
+            String [] values = command.split(" ");    //couldn't find another way to do it so
+            int start = Integer.parseInt(values[1]);  //should work for now. need another way to split
+            int end = Integer.parseInt(values[2]);    //these commands.
             for (int i = start; i <= end; i++){
                 str = this.message.delete(start);
-                //setCommandos(command);
+                clipBoard += this.message.getRemoved().getData().toString();
             }
+            setCommandos(command);
             return str;
         }else if (command.charAt(0) == 'p'){
-
+            String str = "";
+            int start = Integer.parseInt(command.substring(2));
+            if (clipBoard != null){
+                System.out.println(clipBoard.length());
+                for (int i = 0; i < clipBoard.length(); i ++){
+                    str = this.message.change(clipBoard.charAt(i), start);
+                    start++;
+                }
+            }
+            setCommandos(command);
+            return str;
         }else if (command.charAt(0) == 'c') {
-
+            clipBoard = "";
+            String [] values = command.split(" ");    //couldn't find another way to do it so
+            int start = Integer.parseInt(values[1]);  //should work for now. need another way to split
+            int end = Integer.parseInt(values[2]);    //these commands.
+            String str = this.message.copy(start, end);
+            clipBoard = str;
+            return clipBoard;
         }else if (command.charAt(0) == 's'){
             String str3 = getCommandos();
             save(str3, command.substring(2));
@@ -87,12 +106,18 @@ public class Mix implements IMix {
             str = "r " + commandos.substring(4);
         }else if (commandos.charAt(0) == 'r'){
             str = "b " + message.getRemoved().getData() + " " + commandos.substring(2);
+        }else if (commandos.charAt(0) == 'x'){
+            str = "p " + commandos.substring(2,3);
+        }else if (commandos.charAt(0) == 'p'){
+            int num = Integer.parseInt(commandos.substring(2)) + clipBoard.length() - 1;
+            str = "x " + commandos.substring(2) + " " + num;
         }
         this.commandos += str + "\n";
     }
 
     public static void main(String[] args){
         Mix m = new Mix();
+        String overall = "";
 
         //displays the set of commands
         System.out.println("Here is the initial set of commands:");
@@ -100,7 +125,7 @@ public class Mix implements IMix {
         System.out.println("b c # \t\t" + "means insert char 'c' before position #");
         System.out.println("r # \t\t" + "means remove a char at position #");
         System.out.println("x & # \t\t" + "means cut to clipboard, starting at & to # (inclusive)");
-        System.out.println("p & # \t\t" + "means paste from clipboard, start at #");
+        System.out.println("p # \t\t" + "means paste from clipboard, start at #");
         System.out.println("c & # \t\t" + "means copy to clipboard, starting at & to # (inclusive)");
         System.out.print("s filename \t" + "means, to save off the set ");
         System.out.println("of undo commands into text file named \"filename\".");
@@ -117,10 +142,13 @@ public class Mix implements IMix {
         String cmessage = sc.nextLine();
 
         if(!cmessage.equals("Q")) {
-            String overall = m.processCommand(cmessage);
-            System.out.println("\nMessage: \n");
-            m.setInitialMessage(overall);
-
+            if (cmessage.charAt(0) == 'c'){
+                m.processCommand(cmessage);
+            }else {
+                overall = m.processCommand(cmessage);
+                System.out.println("\nMessage: \n");
+                m.setInitialMessage(overall);
+            }
             while (!cmessage.equals("Q")) {
                 System.out.print("\nCommand: ");
                 cmessage = sc.nextLine();
@@ -128,7 +156,9 @@ public class Mix implements IMix {
                     m.processCommand(cmessage);
                     //String saves = m.processCommand(cmessage);
                     //System.out.println(saves);
-                }else if (!cmessage.equals("Q")) {
+                }else if (cmessage.charAt(0) == 'c'){
+                    m.processCommand(cmessage);
+                } else if (!cmessage.equals("Q")) {
                     overall = m.processCommand(cmessage);
                     System.out.println("\nMessage: \n");
                     m.setInitialMessage(overall);

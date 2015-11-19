@@ -150,6 +150,19 @@ public class LinkList<E> {
 
     }
 
+    public String copy(int pos1, int pos2){
+        String str = "";
+        Node<E> temp = top;
+        for (int i = 0; i <= pos2; i++){
+            if (i >= pos1){
+                str += (temp.getData());
+            }
+            temp = temp.getNext();
+        }
+        return str;
+    }
+
+    //also a pointer for copy
     public Node<E> getRemoved() {
         return removed;
     }
