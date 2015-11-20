@@ -168,7 +168,16 @@ public class LinkList<E> {
         return removed;
     }
 
-    public void setRemoved(Node<E> removed) {
-        this.removed = removed;
+    public Node<E> readList(int pos) {
+        Node<E> temp = top;
+        int counter = 0;
+        while (temp != null) {
+            if (counter == pos){
+                return temp;
+            }
+            temp = temp.getNext();
+            counter++;
+        }
+        return null;
     }
 }

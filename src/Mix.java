@@ -2,6 +2,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Scanner;
 
 /**
@@ -25,9 +27,6 @@ public class Mix implements IMix {
             m.addAtEnd(message.charAt(i));
         }
         this.message = m;
-        this.message.displayCounter();
-        System.out.println();
-        this.message.display();
     }
 
     @Override
@@ -84,10 +83,19 @@ public class Mix implements IMix {
         return null;
     }
 
+    public void showMessage(){
+        this.message.displayCounter();
+        System.out.println();
+        this.message.display();
+    }
+
     public void save (String str, String filename) {
+        if (!filename.contains(".txt")){
+            filename = filename + ".txt";
+        }
         PrintWriter out = null;
         try {
-            out = new PrintWriter(new BufferedWriter(new FileWriter(filename + ".txt")));
+            out = new PrintWriter(new BufferedWriter(new FileWriter(filename)));
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -95,6 +103,8 @@ public class Mix implements IMix {
 
         out.print(str);
         out.close();
+
+        //Collections.reverse(out);
     }
 
 
@@ -114,6 +124,7 @@ public class Mix implements IMix {
             int num = Integer.parseInt(commandos.substring(2)) + clipBoard.length() - 1;
             str = "x " + commandos.substring(2) + " " + num;
         }
+
         this.commandos += str + "\n";
     }
 
@@ -138,6 +149,7 @@ public class Mix implements IMix {
         String imessage = sc.nextLine();
         System.out.println("\nMessage: \n");
         m.setInitialMessage(imessage);
+        m.showMessage();
 
         //Asking user to enter the command
         System.out.print("\nCommand: ");
@@ -150,20 +162,20 @@ public class Mix implements IMix {
                 overall = m.processCommand(cmessage);
                 System.out.println("\nMessage: \n");
                 m.setInitialMessage(overall);
+                m.showMessage();
             }
             while (!cmessage.equals("Q")) {
                 System.out.print("\nCommand: ");
                 cmessage = sc.nextLine();
                 if (cmessage.charAt(0) == 's'){
                     m.processCommand(cmessage);
-                    //String saves = m.processCommand(cmessage);
-                    //System.out.println(saves);
                 }else if (cmessage.charAt(0) == 'c'){
                     m.processCommand(cmessage);
                 } else if (!cmessage.equals("Q")) {
                     overall = m.processCommand(cmessage);
                     System.out.println("\nMessage: \n");
                     m.setInitialMessage(overall);
+                    m.showMessage();
                 }
             }
             System.out.println("\nFinal message: " + overall);
