@@ -32,8 +32,15 @@ public class Mix implements IMix {
     public String processCommand(String command){
             if (command.charAt(0) == 'b') {
                 try {
-                    int num = Integer.parseInt(command.substring(4));
-                    String str = this.message.change(command.charAt(2), num);
+                    String str = "";
+                    LinkList<String> com = new LinkList<String>();
+                    for (String retval : command.split(" ")){
+                        com.addAtEnd(retval);
+                    }
+                    int num = Integer.parseInt(com.readList(2).getData());
+                    for (int i = 0; i < com.readList(1).getData().length(); i++){
+                        str = this.message.change(com.readList(1).getData().charAt(i), num++);
+                    }
                     setCommandos(command);
                     return str;
                 }catch(Exception b){
