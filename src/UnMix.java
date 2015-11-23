@@ -8,13 +8,10 @@ import java.util.Scanner;
  */
 public class UnMix implements IUnMix{
     private LinkList<Character> message;
-    private String commandos;
-    private String clipBoard;
+    public static String clipBoard;
 
     public UnMix(){
         message = new LinkList<Character>();
-        commandos = "";
-        clipBoard = "";
     }
 
     @Override
@@ -23,6 +20,7 @@ public class UnMix implements IUnMix{
         String unmix = "";
         Mix mix = new Mix();
 
+        System.out.println(mix.clipBoard);
         mix.setInitialMessage(userMessage);
 
         if (!filename.contains(".txt")){

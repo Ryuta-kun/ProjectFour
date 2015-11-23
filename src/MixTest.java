@@ -12,11 +12,7 @@ public class MixTest {
         Mix message = new Mix();
         message.setInitialMessage ("This is a secret message");
         String userMessage = null;
-        try {
-            userMessage = message.processCommand("b a 0");
-        } catch (Exception e) {
-            System.out.println("Command Unknown");
-        }
+        userMessage = message.processCommand("b a 0");
         assertEquals("aThis is a secret message", userMessage);
     }
 
@@ -25,11 +21,7 @@ public class MixTest {
         Mix message = new Mix();
         message.setInitialMessage ("This is a secret message");
         String userMessage = null;
-        try {
-            userMessage = message.processCommand("r 8");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        userMessage = message.processCommand("r 8");
         assertEquals("This is  secret message", userMessage);
     }
 
@@ -37,18 +29,9 @@ public class MixTest {
     public void testProcessCommand3() {
         Mix message = new Mix();
         message.setInitialMessage ("This is a secret message");
-        try {
-            message.processCommand("c 0 6");
-        } catch (Exception e) {
-            System.out.println("Command Unknown");
-        }
+        message.processCommand("c 0 6");
         String userMessage = null;
-        try {
-            userMessage = message.processCommand("p 0");
-        } catch (Exception e) {
-            System.out.println("Command Unknown");
-
-        }
+        userMessage = message.processCommand("p 0");
         assertEquals("This isThis is a secret message", userMessage);
     }
 
@@ -57,11 +40,7 @@ public class MixTest {
         Mix message = new Mix();
         message.setInitialMessage ("This is a secret message");
         String userMessage = null;
-        try {
-            userMessage = message.processCommand("x 0 6");
-        } catch (Exception e) {
-            System.out.println("Command Unknown");
-        }
+        userMessage = message.processCommand("x 0 6");
         assertEquals(" a secret message", userMessage);
     }
 }

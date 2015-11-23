@@ -13,16 +13,8 @@ public class UnMixTest {
         Mix message = new Mix();
         message.setInitialMessage("This is a secret message");
         String userMessage = null;
-        try {
-            userMessage = message.processCommand("b a 0");
-        } catch (Exception e) {
-            System.out.println("Command Unknown");
-        }
-        try {
-            message.processCommand("s testIt");
-        } catch (Exception e) {
-            System.out.println("Command Unknown");
-        }
+        userMessage = message.processCommand("b a 0");
+        message.processCommand("s testIt");
 
 
         UnMix unMessage = new UnMix();
