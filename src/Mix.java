@@ -33,15 +33,26 @@ public class Mix implements IMix {
             if (command.charAt(0) == 'b') {
                 try {
                     String str = "";
+                    String undo = "";
                     LinkList<String> com = new LinkList<String>();
                     for (String retval : command.split(" ")){
+                        if (retval.contains("_")){
+                            retval = retval.replace('_', ' ');
+                        }
                         com.addAtEnd(retval);
                     }
                     int num = Integer.parseInt(com.readList(2).getData());
                     for (int i = 0; i < com.readList(1).getData().length(); i++){
                         str = this.message.change(com.readList(1).getData().charAt(i), num++);
                     }
-                    setCommandos(command);
+
+                    if(com.readList(1).getData().length() > 1){
+                        undo = "r " + Integer.parseInt(com.readList(2).getData()) + " " + com.readList(1).getData().length();
+                    }else{
+                        undo = "r " + Integer.parseInt(com.readList(2).getData());
+                    }
+
+                    setCommandos(undo);
                     return str;
                 }catch(Exception b){
                     throw b;
@@ -50,7 +61,8 @@ public class Mix implements IMix {
                 try {
                     int numr = Integer.parseInt(command.substring(2));
                     String str2 = this.message.delete(numr);
-                    setCommandos(command);
+                    String undo = "b " + message.getRemoved().getData() + " " + numr;
+                    setCommandos(undo);
                     return str2;
                 }catch(Exception b){
                     throw b;
@@ -66,7 +78,8 @@ public class Mix implements IMix {
                         str = this.message.delete(start);
                         clipBoard += this.message.getRemoved().getData().toString();
                     }
-                    setCommandos(command);
+                    String undo = "p " + start + " " + end;
+                    setCommandos(undo);
                     return str;
                 }catch(Exception b){
                     throw b;
@@ -81,7 +94,10 @@ public class Mix implements IMix {
                             str = this.message.change(clipBoard.charAt(i), start);
                             start++;
                         }
-                        setCommandos(command);
+
+                        int num = start + clipBoard.length() - 1;
+                        String undo = "x " + start + " " + num;
+                        setCommandos(undo);
                         return str;
                     } else {
                         return this.message.toString();
@@ -147,19 +163,7 @@ public class Mix implements IMix {
     }
 
     public void setCommandos(String commandos) {
-        String str = "";
-        if (commandos.charAt(0) == 'b'){
-            str = "r " + commandos.substring(4);
-        }else if (commandos.charAt(0) == 'r'){
-            str = "b " + message.getRemoved().getData() + " " + commandos.substring(2);
-        }else if (commandos.charAt(0) == 'x'){
-            str = "p " + commandos.substring(2,3);
-        }else if (commandos.charAt(0) == 'p'){
-            int num = Integer.parseInt(commandos.substring(2)) + clipBoard.length() - 1;
-            str = "x " + commandos.substring(2) + " " + num;
-        }
-
-        this.commandos += str + "\n";
+        this.commandos += commandos + "\n";
     }
 
     public static void main(String[] args){
@@ -174,7 +178,7 @@ public class Mix implements IMix {
         System.out.println("x & # \t\t" + "means cut to clipboard, starting at & to # (inclusive)");
         System.out.println("p # \t\t" + "means paste from clipboard, start at #");
         System.out.println("c & # \t\t" + "means copy to clipboard, starting at & to # (inclusive)");
-        System.out.println("' ' \t\t" + "to insert a space into the message three spaces must be used for one space");
+        System.out.println("'_' \t\t" + "to insert a space into the message use _");
 
         System.out.print("s filename \t" + "means, to save off the set ");
         System.out.println("of undo commands into text file named \"filename\".");
