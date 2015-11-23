@@ -28,13 +28,14 @@ public class Mix implements IMix {
     }
 
     @Override
-    public String processCommand(String command) {
-        if (command.charAt(0) == 'b'){
-            int num = Integer.parseInt(command.substring(4));
-            String str = this.message.change(command.charAt(2), num);
-            setCommandos(command);
-            return str;
-        }else if (command.charAt(0) == 'r'){
+    public String processCommand(String command)throws Exception{
+        if (command.charAt(0) == 'b') {
+                int num = Integer.parseInt(command.substring(4));
+                String str = this.message.change(command.charAt(2), num);
+                setCommandos(command);
+                return str;
+        }
+        else if (command.charAt(0) == 'r'){
             int numr = Integer.parseInt(command.substring(2));
             String str2 = this.message.delete(numr);
             setCommandos(command);
@@ -155,9 +156,20 @@ public class Mix implements IMix {
 
         if(!cmessage.equals("Q")) {
             if (cmessage.charAt(0) == 'c'){
-                m.processCommand(cmessage);
+                try {
+                    m.processCommand(cmessage);
+                } catch (Exception e) {
+                    System.out.println("Command Unknown");
+                }
             }else {
-                overall = m.processCommand(cmessage);
+                try {
+                    overall = m.processCommand(cmessage);
+                    System.out.println("\nMessage: \n");
+                    m.setInitialMessage(overall);
+                    m.showMessage();
+                } catch (Exception e) {
+                    System.out.println("Command Unknown");
+                }
                 System.out.println("\nMessage: \n");
                 m.setInitialMessage(overall);
                 m.showMessage();
@@ -166,11 +178,23 @@ public class Mix implements IMix {
                 System.out.print("\nCommand: ");
                 cmessage = sc.nextLine();
                 if (cmessage.charAt(0) == 's'){
-                    m.processCommand(cmessage);
+                    try {
+                        m.processCommand(cmessage);
+                    } catch (Exception e) {
+                        System.out.println("Command Unknown");
+                    }
                 }else if (cmessage.charAt(0) == 'c'){
-                    m.processCommand(cmessage);
+                    try {
+                        m.processCommand(cmessage);
+                    } catch (Exception e) {
+                        System.out.println("Command Unknown");
+                    }
                 } else if (!cmessage.equals("Q")) {
-                    overall = m.processCommand(cmessage);
+                    try {
+                        overall = m.processCommand(cmessage);
+                    } catch (Exception e) {
+                        System.out.println("Command Unknown");
+                    }
                     System.out.println("\nMessage: \n");
                     m.setInitialMessage(overall);
                     m.showMessage();

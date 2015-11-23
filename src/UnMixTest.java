@@ -12,8 +12,17 @@ public class UnMixTest {
         // this code could be removed if the file already exist
         Mix message = new Mix();
         message.setInitialMessage("This is a secret message");
-        String userMessage = message.processCommand("b a 0");
-        message.processCommand("s testIt");
+        String userMessage = null;
+        try {
+            userMessage = message.processCommand("b a 0");
+        } catch (Exception e) {
+            System.out.println("Command Unknown");
+        }
+        try {
+            message.processCommand("s testIt");
+        } catch (Exception e) {
+            System.out.println("Command Unknown");
+        }
 
 
         UnMix unMessage = new UnMix();
