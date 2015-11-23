@@ -167,8 +167,11 @@ public class Mix implements IMix {
         System.out.println("x & # \t\t" + "means cut to clipboard, starting at & to # (inclusive)");
         System.out.println("p # \t\t" + "means paste from clipboard, start at #");
         System.out.println("c & # \t\t" + "means copy to clipboard, starting at & to # (inclusive)");
+        System.out.println("' ' \t\t" + "to insert a space into the message three spaces must be used for one space");
+
         System.out.print("s filename \t" + "means, to save off the set ");
         System.out.println("of undo commands into text file named \"filename\".");
+
 
         //asks the user to enter the secret message
         System.out.println("\nEnter in initial message to mix up");
