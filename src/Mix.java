@@ -2,7 +2,6 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.IllegalFormatException;
 import java.util.Scanner;
 
 /**
@@ -11,12 +10,11 @@ import java.util.Scanner;
 public class Mix implements IMix {
     private LinkList<Character> message;
     private String commandos;
-    public static String clipBoard;
+    protected String clipBoard;
 
     public Mix(){
         message = new LinkList<Character>();
         commandos = "";
-        clipBoard = "";
     }
 
     @Override
@@ -47,7 +45,7 @@ public class Mix implements IMix {
                     }
 
                     if(com.readList(1).getData().length() > 1){
-                        undo = "r " + Integer.parseInt(com.readList(2).getData()) + " " + com.readList(1).getData().length();
+                        undo = "x " + Integer.parseInt(com.readList(2).getData()) + " " + (com.readList(1).getData().length() - 1);
                     }else{
                         undo = "r " + Integer.parseInt(com.readList(2).getData());
                     }
@@ -81,8 +79,13 @@ public class Mix implements IMix {
                     for (int i = start; i <= end; i++) {
                         str = this.message.delete(start);
                         clipBoard += this.message.getRemoved().getData().toString();
+                        System.out.println(clipBoard);
                     }
-                    String undo = "p " + start;
+
+                    if (clipBoard.contains(" ")){
+                        clipBoard = clipBoard.replace(' ', '_');
+                    }
+                    String undo = "b " + clipBoard + " " + start;
                     setCommandos(undo);
                     return str;
                 }catch(Exception b){
@@ -93,7 +96,6 @@ public class Mix implements IMix {
                     String str = "";
                     int start = Integer.parseInt(command.substring(2));
                     if (!clipBoard.equals("")) {
-                        System.out.println(clipBoard);
                         for (int i = 0; i < clipBoard.length(); i++) {
                             str = this.message.change(clipBoard.charAt(i), start);
                             start++;
@@ -157,10 +159,11 @@ public class Mix implements IMix {
 
         out.print(str);
         out.close();
-
-        //Collections.reverse(out);
     }
 
+    public LinkList<Character> getMessage() {
+        return message;
+    }
 
     public String getCommandos() {
         return commandos;

@@ -6,9 +6,8 @@ import java.util.Scanner;
 /**
  * Created by Lanndon on 11/15/2015.
  */
-public class UnMix implements IUnMix{
+public class UnMix implements IUnMix {
     private LinkList<Character> message;
-    public static String clipBoard;
 
     public UnMix(){
         message = new LinkList<Character>();
@@ -20,8 +19,8 @@ public class UnMix implements IUnMix{
         String unmix = "";
         Mix mix = new Mix();
 
-        System.out.println(mix.clipBoard);
         mix.setInitialMessage(userMessage);
+        message = mix.getMessage();
 
         if (!filename.contains(".txt")){
             filename = filename + ".txt";
