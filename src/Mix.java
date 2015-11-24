@@ -61,7 +61,11 @@ public class Mix implements IMix {
                 try {
                     int numr = Integer.parseInt(command.substring(2));
                     String str2 = this.message.delete(numr);
-                    String undo = "b " + message.getRemoved().getData() + " " + numr;
+                    char deleted = message.getRemoved().getData();
+                    if (deleted == ' '){
+                        deleted = '_';
+                    }
+                    String undo = "b " + deleted + " " + numr;
                     setCommandos(undo);
                     return str2;
                 }catch(Exception b){
@@ -78,7 +82,7 @@ public class Mix implements IMix {
                         str = this.message.delete(start);
                         clipBoard += this.message.getRemoved().getData().toString();
                     }
-                    String undo = "p " + start + " " + end;
+                    String undo = "p " + start;
                     setCommandos(undo);
                     return str;
                 }catch(Exception b){
@@ -95,8 +99,8 @@ public class Mix implements IMix {
                             start++;
                         }
 
-                        int num = start + clipBoard.length() - 1;
-                        String undo = "x " + start + " " + num;
+                        int num = Integer.parseInt(command.substring(2)) + clipBoard.length() - 1;
+                        String undo = "x " + Integer.parseInt(command.substring(2)) + " " + num;
                         setCommandos(undo);
                         return str;
                     } else {
