@@ -36,16 +36,19 @@ public class Mix implements IMix {
                     for (String retval : command.split(" ")){
                         if (retval.contains("_")){
                             retval = retval.replace('_', ' ');
+                            System.out.print(retval);
                         }
                         com.addAtEnd(retval);
+
                     }
                     int num = Integer.parseInt(com.readList(2).getData());
                     for (int i = 0; i < com.readList(1).getData().length(); i++){
                         str = this.message.change(com.readList(1).getData().charAt(i), num++);
                     }
-
+                    System.out.println(com.readList(1).getData().length());
                     if(com.readList(1).getData().length() > 1){
-                        undo = "x " + Integer.parseInt(com.readList(2).getData()) + " " + (com.readList(1).getData().length() - 1);
+                        int number = Integer.parseInt(com.readList(2).getData()) + (com.readList(1).getData().length() - 1);
+                        undo = "x " + Integer.parseInt(com.readList(2).getData()) + " " + number;
                     }else{
                         undo = "r " + Integer.parseInt(com.readList(2).getData());
                     }
