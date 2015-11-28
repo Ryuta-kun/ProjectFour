@@ -40,20 +40,19 @@ public class UnMix implements IUnMix {
                 String s = commands.readList(i).getData();
                 unmix = mix.processCommand(s);
             }
+
+            return unmix;
         }
         // could not find file
         catch(FileNotFoundException error) {
-            System.out.println("File not found ");
+            System.err.println("File not found ");
         }
 
         // problem reading the file
-        catch(IOException error){
-            System.out.println("Oops!  Something went wrong.");
+        catch(Exception error){
+            System.err.println("Oops!  Something went wrong.");
         }
-
-        finally{
-            return unmix;
-        }
+        return null;
     }
 
     public static void main (String[] args){
@@ -64,6 +63,8 @@ public class UnMix implements IUnMix {
         System.out.println("\nEnter in the file to unmix message");
         String filename = sc.nextLine();
         String message = m.UnMixUsingFile(filename, userMessage);
-        System.out.println("\nThe original message was: \n\t" + message);
+        if (message != null) {
+            System.out.println("\nThe original message was: \n\t" + message);
+        }
     }
 }
