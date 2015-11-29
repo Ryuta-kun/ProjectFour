@@ -118,7 +118,7 @@ public class LinkList<E> {
             }
         }
 
-        //check if anyother than the top is the target
+        //check if any other than the top is the target
         else {
             Node<E> temp = top;
             int counter = 0;
@@ -170,5 +170,34 @@ public class LinkList<E> {
             counter++;
         }
         return null;
+    }
+    public String swapChar(int pos1, int pos2){
+        String str = "";
+        Node<E> temp = top;
+        Node<E> temp2 = top;
+        for(int i = 0; i <= (pos1 -1); i++){
+            temp = temp.getNext();
+        }
+        for(int i = 0; i <= (pos2 -1); i++){
+            temp2 = temp2.getNext();
+        }
+        Node add = new Node();
+        Node add2 = new Node();
+        add.setData(temp.getNext().getData());
+        add2.setData(temp2.getNext().getData());
+        temp.setNext(add2);
+        temp2.setNext(add);
+        if (temp.getNext() == null) {
+            tail = temp.getNext();
+        }
+        if(temp2.getNext() == null){
+            tail = temp2.getNext();
+        }
+        Node<E> temp3 = top;
+        while (temp != null) {
+            str += (temp3.getData());
+            temp3 = temp3.getNext();
+        }
+        return str;
     }
 }

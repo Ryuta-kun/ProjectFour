@@ -143,6 +143,18 @@ public class Mix implements IMix {
                 }
             }
         }
+        else if(command.charAt(0) == 'w'){
+            try{
+                int num1 = Integer.parseInt(command.substring(2));
+                int num2 = Integer.parseInt(command.substring(4));
+                 String str = "";
+                str = this.message.swapChar(num1, num2);
+                return str;
+                }catch (Exception e) {
+                throw e;
+            }
+
+        }
         return this.message.toString();
     }
 
@@ -189,6 +201,7 @@ public class Mix implements IMix {
         System.out.println("Q \t\t\t" + "Quit");
         System.out.println("b c # \t\t" + "means insert char 'c' before position #");
         System.out.println("r # \t\t" + "means remove a char at position #");
+        System.out.println("w & # \t\t" + "means switch characters at postions & with #");
         System.out.println("x & # \t\t" + "means cut to clipboard, starting at & to # (inclusive)");
         System.out.println("p # \t\t" + "means paste from clipboard, start at #");
         System.out.println("c & # \t\t" + "means copy to clipboard, starting at & to # (inclusive)");
