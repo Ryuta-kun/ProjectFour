@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -16,12 +15,16 @@ public class UnMix implements IUnMix {
     @Override
     public String UnMixUsingFile(String filename, String userMessage) {
         String str;
-        String unmix = "";
+        String unmix = userMessage;
         Mix mix = new Mix();
 
+        //calls the mix command and then sets the unmix message
+        //provided as the usermessage on mix class -> pretty much did
+        //the same thing so I guessed I could use this for easier process.
         mix.setInitialMessage(userMessage);
         message = mix.getMessage();
 
+        //sets the filename output extension if it was not provided
         if (!filename.contains(".txt")){
             filename = filename + ".txt";
         }
@@ -31,11 +34,13 @@ public class UnMix implements IUnMix {
             Scanner fileReader = new Scanner(new File(filename));
             LinkList<String> commands = new LinkList<String>();
 
+            //goes through the file and adds it to the linked if it hasNextLine()
             while (fileReader.hasNextLine()){
                 str = fileReader.nextLine();
                 commands.addfirst(str);
             }
 
+            //goes through the linked list and process each command to unmix the commands
             for (int i = 0; i < commands.count(); i++){
                 String s = commands.readList(i).getData();
                 unmix = mix.processCommand(s);

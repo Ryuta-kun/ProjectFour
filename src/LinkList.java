@@ -50,25 +50,21 @@ public class LinkList<E> {
     }
 
     public String change(E data, int pos){
-        if (top == null) {
-            top = new Node<E> (data, top);
-        }else {
-            int counter = 0;
-            Node<E> temp1 = top;
-            if(pos == 0) {
-                addfirst(data);
-            }else{
-                while (counter < (pos - 1)) {
-                    counter++;
-                    temp1 = temp1.getNext();
-                }
-                Node add = new Node();
-                add.setData(data);
-                add.setNext(temp1.getNext());
-                temp1.setNext(add);
-                if (temp1.getNext() == null){
-                    tail = temp1.getNext();
-                }
+        int counter = 0;
+        Node<E> temp1 = top;
+        if(pos == 0) {
+            addfirst(data);
+        }else{
+            while (counter < (pos - 1)) {
+                counter++;
+                temp1 = temp1.getNext();
+            }
+            Node add = new Node();
+            add.setData(data);
+            add.setNext(temp1.getNext());
+            temp1.setNext(add);
+            if (temp1.getNext() == null){
+                tail = temp1.getNext();
             }
         }
 
@@ -110,14 +106,14 @@ public class LinkList<E> {
     public String delete (int pos) {
 
         if (top == null) {
-
+            tail = top = null;
         }
 
         //check if top element is the target
         if (pos == 0) {
             removed = top;
             top = top.getNext();
-            if (top.getNext() == null){
+            if (top == null){
                 tail = null;
             }
         }
@@ -144,11 +140,6 @@ public class LinkList<E> {
             temp2 = temp2.getNext();
         }
         return str;
-    }
-
-    public void dleteHalfWay() {
-
-
     }
 
     public String copy(int pos1, int pos2){

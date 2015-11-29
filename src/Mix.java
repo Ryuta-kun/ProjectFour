@@ -28,118 +28,122 @@ public class Mix implements IMix {
 
     @Override
     public String processCommand(String command){
-            if (command.charAt(0) == 'b') {
-                try {
-                    String str = "";
-                    String undo = "";
-                    LinkList<String> com = new LinkList<String>();
-                    for (String retval : command.split(" ")){
-                        if (retval.contains("_")){
-                            retval = retval.replace('_', ' ');
-                            System.out.print(retval);
-                        }
-                        com.addAtEnd(retval);
+        if (command.charAt(0) == 'b') {
+            try {
+                String str = "";
+                String undo = "";
+                LinkList<String> com = new LinkList<String>();
+                for (String retval : command.split(" ")){
+                    if (retval.contains("_")){
+                        retval = retval.replace('_', ' ');
+                    }
+                    com.addAtEnd(retval);
 
-                    }
-                    int num = Integer.parseInt(com.readList(2).getData());
-                    for (int i = 0; i < com.readList(1).getData().length(); i++){
-                        str = this.message.change(com.readList(1).getData().charAt(i), num++);
-                    }
-                    System.out.println(com.readList(1).getData().length());
-                    if(com.readList(1).getData().length() > 1){
-                        int number = Integer.parseInt(com.readList(2).getData()) + (com.readList(1).getData().length() - 1);
-                        undo = "x " + Integer.parseInt(com.readList(2).getData()) + " " + number;
-                    }else{
-                        undo = "r " + Integer.parseInt(com.readList(2).getData());
-                    }
+                }
+                int num = Integer.parseInt(com.readList(2).getData());
+                for (int i = 0; i < com.readList(1).getData().length(); i++){
+                    str = this.message.change(com.readList(1).getData().charAt(i), num++);
+                }
 
-                    setCommandos(undo);
-                    return str;
-                }catch(Exception b){
-                    throw b;
+                if(com.readList(1).getData().length() > 1){
+                    int number = Integer.parseInt(com.readList(2).getData()) + (com.readList(1).getData().length() - 1);
+                    undo = "x " + Integer.parseInt(com.readList(2).getData()) + " " + number;
+                }else{
+                    undo = "r " + Integer.parseInt(com.readList(2).getData());
                 }
-            } else if (command.charAt(0) == 'r') {
-                try {
-                    int numr = Integer.parseInt(command.substring(2));
-                    String str2 = this.message.delete(numr);
-                    char deleted = message.getRemoved().getData();
-                    if (deleted == ' '){
-                        deleted = '_';
-                    }
-                    String undo = "b " + deleted + " " + numr;
-                    setCommandos(undo);
-                    return str2;
-                }catch(Exception b){
-                    throw b;
+
+                setCommandos(undo);
+                return str;
+            }catch(Exception b){
+                throw b;
+            }
+        } else if (command.charAt(0) == 'r') {
+            try {
+                int numr = Integer.parseInt(command.substring(2));
+                String str2 = this.message.delete(numr);
+                char deleted = message.getRemoved().getData();
+                if (deleted == ' '){
+                    deleted = '_';
                 }
-            } else if (command.charAt(0) == 'x') {
-                try {
-                    String str = "";
-                    clipBoard = "";
-                    String[] values = command.split(" ");    //couldn't find another way to do it so
-                    int start = Integer.parseInt(values[1]);  //should work for now. need another way to split
-                    int end = Integer.parseInt(values[2]);    //these commands.
+                String undo = "b " + deleted + " " + numr;
+                setCommandos(undo);
+                return str2;
+            }catch(Exception b){
+                throw b;
+            }
+        } else if (command.charAt(0) == 'x') {
+            try {
+                String str = "";
+                clipBoard = "";
+                String[] values = command.split(" ");    //couldn't find another way to do it so
+                int start = Integer.parseInt(values[1]);  //should work for now. need another way to split
+                int end = Integer.parseInt(values[2]);    //these commands.
+                if ((this.message.count() - 1) >= end) {
                     for (int i = start; i <= end; i++) {
                         str = this.message.delete(start);
                         clipBoard += this.message.getRemoved().getData().toString();
-                        System.out.println(clipBoard);
                     }
 
-                    if (clipBoard.contains(" ")){
+
+                    if (clipBoard.contains(" ")) {
                         clipBoard = clipBoard.replace(' ', '_');
                     }
                     String undo = "b " + clipBoard + " " + start;
                     setCommandos(undo);
                     return str;
-                }catch(Exception b){
-                    throw b;
+                }else{
+                    System.err.println("Command Unknown");
+                    return this.message.toString();
                 }
-            } else if (command.charAt(0) == 'p') {
-                try {
-                    String str = "";
-                    int start = Integer.parseInt(command.substring(2));
-                    if (!clipBoard.equals("")) {
-                        for (int i = 0; i < clipBoard.length(); i++) {
-                            str = this.message.change(clipBoard.charAt(i), start);
-                            start++;
-                        }
+            }catch(Exception b){
+                throw b;
+            }
+        } else if (command.charAt(0) == 'p') {
+            try {
+                String str = "";
+                int start = Integer.parseInt(command.substring(2));
+                if (!clipBoard.equals("")) {
+                    for (int i = 0; i < clipBoard.length(); i++) {
+                        str = this.message.change(clipBoard.charAt(i), start);
+                        start++;
+                    }
 
-                        int num = Integer.parseInt(command.substring(2)) + clipBoard.length() - 1;
-                        String undo = "x " + Integer.parseInt(command.substring(2)) + " " + num;
-                        setCommandos(undo);
-                        return str;
-                    } else {
-                        return this.message.toString();
-                    }
-                }catch(Exception b){
-                    throw b;
+                    int num = Integer.parseInt(command.substring(2)) + clipBoard.length() - 1;
+                    String undo = "x " + Integer.parseInt(command.substring(2)) + " " + num;
+                    setCommandos(undo);
+                    return str;
+                } else {
+                    return this.message.toString();
                 }
-            } else if (command.charAt(0) == 'c') {
+            }catch(Exception b){
+                throw b;
+            }
+        } else if (command.charAt(0) == 'c') {
+            try {
+                clipBoard = "";
+                String[] values = command.split(" ");    //couldn't find another way to do it so
+                int start = Integer.parseInt(values[1]);  //should work for now. need another way to split
+                int end = Integer.parseInt(values[2]);    //these commands.
+                String str = this.message.copy(start, end);
+                clipBoard = str;
+                return clipBoard;
+            }catch(Exception b){
+                throw b;
+            }
+        } else if (command.charAt(0) == 's') {
+            if (command.charAt(2) == ' ') {
+                throw new IllegalArgumentException();
+            }else {
                 try {
-                    clipBoard = "";
-                    String[] values = command.split(" ");    //couldn't find another way to do it so
-                    int start = Integer.parseInt(values[1]);  //should work for now. need another way to split
-                    int end = Integer.parseInt(values[2]);    //these commands.
-                    String str = this.message.copy(start, end);
-                    clipBoard = str;
-                    return clipBoard;
-                }catch(Exception b){
-                    throw b;
-                }
-            } else if (command.charAt(0) == 's') {
-                if (command.charAt(1) != ' ') {
-                    throw new IllegalArgumentException();
-                }else {
-                    try {
-                        String str3 = getCommandos();
-                        save(str3, command.substring(2));
-                        return str3;
-                    } catch (Exception e) {
-                        throw e;
-                    }
+                    String str3 = getCommandos();
+                    save(str3, command.substring(2));
+                    return str3;
+                } catch (Exception e) {
+                    throw e;
                 }
             }
-        return null;
+        }
+        return this.message.toString();
     }
 
     public void showMessage(){
