@@ -124,8 +124,12 @@ public class Mix implements IMix {
                 String[] values = command.split(" ");    //couldn't find another way to do it so
                 int start = Integer.parseInt(values[1]);  //should work for now. need another way to split
                 int end = Integer.parseInt(values[2]);    //these commands.
-                String str = this.message.copy(start, end);
-                clipBoard = str;
+                if (start <= end) {
+                    String str = this.message.copy(start, end);
+                    clipBoard = str;
+                }else{
+                    throw new IllegalArgumentException();
+                }
                 return clipBoard;
             }catch(Exception b){
                 throw b;
