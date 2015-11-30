@@ -236,14 +236,14 @@ public class Mix implements IMix {
                     System.out.println("Command Unknown");
                 }
             }else {
-//                try {
+                try {
                 overall = m.processCommand(cmessage);
                 System.out.println("\nMessage: \n");
                 m.setInitialMessage(overall);
                 m.showMessage();
-//                } catch (Exception e) {
-//                    System.out.println("Command Unknown");
-//                }
+                } catch (Exception e) {
+                    System.out.println("Command Unknown");
+                }
             }
             while (!cmessage.equals("Q")) {
                 System.out.print("\nCommand: ");
