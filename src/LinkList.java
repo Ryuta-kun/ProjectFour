@@ -172,29 +172,29 @@ public class LinkList<E> {
         return null;
     }
     public String swapChar(int pos1, int pos2){
-        String str = "";
         Node<E> temp = top;
         Node<E> temp2 = top;
-        for(int i = 0; i <= (pos1 -1); i++){
-            temp = temp.getNext();
+        if (pos1 == 0){
+            temp = top;
+        }else {
+            for (int i = 0; i <= (pos1 - 1); i++) {
+                temp = temp.getNext();
+            }
         }
+        E data = temp.getData();
+
         for(int i = 0; i <= (pos2 -1); i++){
             temp2 = temp2.getNext();
         }
-        Node add = new Node();
-        Node add2 = new Node();
-        add.setData(temp.getNext().getData());
-        add2.setData(temp2.getNext().getData());
-        temp.setNext(add2);
-        temp2.setNext(add);
-        if (temp.getNext() == null) {
-            tail = temp.getNext();
-        }
-        if(temp2.getNext() == null){
-            tail = temp2.getNext();
-        }
+        E dataTwo = temp2.getData();
+
+        temp.setData(dataTwo);
+        temp2.setData(data);
+
+
+        String str = "";
         Node<E> temp3 = top;
-        while (temp != null) {
+        while (temp3 != null) {
             str += (temp3.getData());
             temp3 = temp3.getNext();
         }

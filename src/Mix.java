@@ -142,18 +142,17 @@ public class Mix implements IMix {
                     throw e;
                 }
             }
-        }
-        else if(command.charAt(0) == 'w'){
+        } else if(command.charAt(0) == 'w'){
             try{
-                int num1 = Integer.parseInt(command.substring(2));
-                int num2 = Integer.parseInt(command.substring(4));
-                 String str = "";
+                String[] values = command.split(" ");    //couldn't find another way to do it so
+                int num1 = Integer.parseInt(values[1]);  //should work for now. need another way to split
+                int num2 = Integer.parseInt(values[2]);    //these commands.
+                String str = "";
                 str = this.message.swapChar(num1, num2);
                 return str;
-                }catch (Exception e) {
+            }catch (Exception e) {
                 throw e;
             }
-
         }
         return this.message.toString();
     }
@@ -194,7 +193,6 @@ public class Mix implements IMix {
 
     public static void main(String[] args){
         Mix m = new Mix();
-        String overall = "";
 
         //displays the set of commands
         System.out.println("Here is the initial set of commands:");
@@ -218,27 +216,34 @@ public class Mix implements IMix {
         System.out.println("\nMessage: \n");
         m.setInitialMessage(imessage);
         m.showMessage();
+        String overall = imessage;
 
         //Asking user to enter the command
         System.out.print("\nCommand: ");
         String cmessage = sc.nextLine();
 
         if(!cmessage.equals("Q")) {
-            if (cmessage.charAt(0) == 'c'){
+            if (cmessage.charAt(0) == 's'){
+                try {
+                    m.processCommand(cmessage);
+                } catch (Exception e) {
+                    System.out.println("Command Unknown");
+                }
+            }else if (cmessage.charAt(0) == 'c'){
                 try {
                     m.processCommand(cmessage);
                 } catch (Exception e) {
                     System.out.println("Command Unknown");
                 }
             }else {
-                try {
-                    overall = m.processCommand(cmessage);
-                    System.out.println("\nMessage: \n");
-                    m.setInitialMessage(overall);
-                    m.showMessage();
-                } catch (Exception e) {
-                    System.out.println("Command Unknown");
-                }
+//                try {
+                overall = m.processCommand(cmessage);
+                System.out.println("\nMessage: \n");
+                m.setInitialMessage(overall);
+                m.showMessage();
+//                } catch (Exception e) {
+//                    System.out.println("Command Unknown");
+//                }
             }
             while (!cmessage.equals("Q")) {
                 System.out.print("\nCommand: ");
