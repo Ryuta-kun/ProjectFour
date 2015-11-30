@@ -51,6 +51,7 @@ public class UnMix implements IUnMix {
         // could not find file
         catch(FileNotFoundException error) {
             System.err.println("File not found ");
+            throw new IllegalArgumentException();
         }
 
         // problem reading the file

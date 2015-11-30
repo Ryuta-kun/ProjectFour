@@ -144,11 +144,15 @@ public class Mix implements IMix {
             }
         } else if(command.charAt(0) == 'w'){
             try{
+                String undo = "";
                 String[] values = command.split(" ");    //couldn't find another way to do it so
                 int num1 = Integer.parseInt(values[1]);  //should work for now. need another way to split
                 int num2 = Integer.parseInt(values[2]);    //these commands.
                 String str = "";
                 str = this.message.swapChar(num1, num2);
+
+                undo = "w " + num1 + " "+  num2;
+                setCommandos(undo);
                 return str;
             }catch (Exception e) {
                 throw e;

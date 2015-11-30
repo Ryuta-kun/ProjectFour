@@ -54,4 +54,13 @@ public class UnMixTest {
         String original = unMessage.UnMixUsingFile("testIt2", userMessage);
         assertEquals(original, "This is a secret message");
     }
+
+    @Test
+            (expected = Exception.class)
+    public void testException() {
+       String userMessage = "";
+        UnMix unMessage = new UnMix();
+        String original = unMessage.UnMixUsingFile("test", userMessage);
+
+    }
 }
