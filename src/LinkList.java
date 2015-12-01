@@ -8,15 +8,23 @@ import java.util.List;
  @version November 2015
  *****************************************************************/
 public class LinkList<E> {
+
+    /** pointer front for linklist*/
     private Node<E> top;
+
+    /** pointer for back of list*/
     private Node<E> tail;
+
+    /** pointer for items removed from list*/
     private Node<E> removed;
 
     /*****************************************************************
      Constructor that instantiates top and tail pointers for the list
      *****************************************************************/
     public LinkList() {
-        top = null;   // 0000
+        //sets top to null
+        top = null;
+        //sets tail to null
         tail = null;
     }
 
@@ -25,6 +33,8 @@ public class LinkList<E> {
      @param data user inputted letter
      *****************************************************************/
     public void addfirst (E data) {
+
+        //checks whether top is null, if null sets pointers to new node
         if (top == null)
             tail = top = new Node<E> (data, top);
         else
@@ -36,6 +46,8 @@ public class LinkList<E> {
      *****************************************************************/
     public void display() {
         Node<E> temp = top;
+
+        //while temp is not null prints out items in list
         while (temp != null) {
             System.out.print("\t" + temp.getData());
             temp = temp.getNext();
@@ -49,6 +61,8 @@ public class LinkList<E> {
     public String toString() {
         String str = "";
         Node<E> temp = top;
+
+        //while temp is not null adds each list item to string to be returned
         while (temp != null) {
             str += temp.getData();
             temp = temp.getNext();
@@ -60,9 +74,12 @@ public class LinkList<E> {
      method that displays the total value of the list
      *****************************************************************/
     public void displayCounter(){
+
         int count = 0;
 
         Node<E> temp = top;
+
+        //prints position of characters in list
         while (temp != null) {
             System.out.print("\t" + count);
             count++;
@@ -72,10 +89,14 @@ public class LinkList<E> {
 
     /*****************************************************************
      method that adds the data to the specified position in the list
+     @param data user specified character
+     @param pos user specified position
      *****************************************************************/
     public String change(E data, int pos){
         int counter = 0;
         Node<E> temp1 = top;
+
+        //checks if user wants character in front of the list
         if(pos == 0) {
             addfirst(data);
         }else{
