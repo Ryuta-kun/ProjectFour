@@ -4,9 +4,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-/**
- * Created by Ryo-chan on 11/11/15.
- */
+/*****************************************************************
+ Graphical representation of a six sided die with various controls
+ over the appearance.  Current value is constrained between 1 and 6.
+
+ @author Ryuta Hirano
+ @author Lanndon Rose
+ @version November 2015
+ *****************************************************************/
 public class Mix implements IMix {
     private LinkList<Character> message;
     private String commandos;
@@ -17,6 +22,10 @@ public class Mix implements IMix {
         commandos = "";
     }
 
+    /*****************************************************************
+     Constructor that input user message into a LinkList
+     @param message the user inputted string
+     *****************************************************************/
     @Override
     public void setInitialMessage(String message) {
         LinkList<Character> m = new LinkList<Character>();
@@ -26,6 +35,10 @@ public class Mix implements IMix {
         this.message = m;
     }
 
+    /*****************************************************************
+     Constructor that input user message into a LinkList
+     @param message the user inputted string
+     *****************************************************************/
     @Override
     public String processCommand(String command){
         if (command.charAt(0) == 'b') {
