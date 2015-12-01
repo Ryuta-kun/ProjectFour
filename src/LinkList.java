@@ -1,18 +1,29 @@
 import java.util.List;
 
-/**
- * Created by Lanndon on 11/15/2015.
- */
+/*****************************************************************
+ Linklist class for the Mix class of the secret message decoding program
+
+ @author Ryuta Hirano
+ @author Lanndon Rose
+ @version November 2015
+ *****************************************************************/
 public class LinkList<E> {
     private Node<E> top;
     private Node<E> tail;
     private Node<E> removed;
 
+    /*****************************************************************
+     Constructor that instantiates top and tail pointers for the list
+     *****************************************************************/
     public LinkList() {
         top = null;   // 0000
         tail = null;
     }
 
+    /*****************************************************************
+     Method for adding data to the top of the list
+     @param data user inputted letter
+     *****************************************************************/
     public void addfirst (E data) {
         if (top == null)
             tail = top = new Node<E> (data, top);
@@ -20,6 +31,9 @@ public class LinkList<E> {
             top = new Node<E> (data, top);
     }
 
+    /*****************************************************************
+     method that prints out the list to console
+     *****************************************************************/
     public void display() {
         Node<E> temp = top;
         while (temp != null) {
@@ -28,6 +42,10 @@ public class LinkList<E> {
         }
     }
 
+    /*****************************************************************
+     method for printing the list out in the correct format
+     @return str string format of the list
+     *****************************************************************/
     public String toString() {
         String str = "";
         Node<E> temp = top;
@@ -38,6 +56,9 @@ public class LinkList<E> {
         return str;
     }
 
+    /*****************************************************************
+     method that displays the total value of the list
+     *****************************************************************/
     public void displayCounter(){
         int count = 0;
 
@@ -49,6 +70,9 @@ public class LinkList<E> {
         }
     }
 
+    /*****************************************************************
+     method that adds the data to the specified position in the list
+     *****************************************************************/
     public String change(E data, int pos){
         int counter = 0;
         Node<E> temp1 = top;
@@ -77,6 +101,10 @@ public class LinkList<E> {
         return str;
     }
 
+    /*****************************************************************
+     method that return the total number of items in the list
+     @return count number of items in the list
+     *****************************************************************/
     public int count() {
         int count = 0;
 
@@ -89,6 +117,10 @@ public class LinkList<E> {
         return count;
     }
 
+    /*****************************************************************
+     method that adds an item to the end of the list
+     @param data character/s inputted by the user
+     *****************************************************************/
     public void addAtEnd (E data) {
 
         if (top == null) {
@@ -103,6 +135,10 @@ public class LinkList<E> {
     }
 
 
+    /*****************************************************************
+     method that removes an item from the list at the specified position
+     @param pos character/s inputted by the user
+     *****************************************************************/
     public String delete (int pos) {
 
         if (top == null) {
@@ -142,6 +178,11 @@ public class LinkList<E> {
         return str;
     }
 
+    /*****************************************************************
+     method swaps two specified letters in the list
+     @param pos1 specified letter position to be swapped
+     @param pos2 specified letter position to be swapped
+     *****************************************************************/
     public String copy(int pos1, int pos2){
         String str = "";
         Node<E> temp = top;
@@ -154,11 +195,18 @@ public class LinkList<E> {
         return str;
     }
 
-    //also a pointer for copy
+    /*****************************************************************
+     method that gets removed item
+     @return removed points to where removed item was
+     *****************************************************************/
     public Node<E> getRemoved() {
         return removed;
     }
-
+    /*****************************************************************
+     method that returns a node at specified position
+     @param pos specified postion of on the list
+     @return temp node of the specified position
+     *****************************************************************/
     public Node<E> readList(int pos) {
         Node<E> temp = top;
         int counter = 0;
@@ -170,7 +218,11 @@ public class LinkList<E> {
             counter++;
         }
         return null;
-    }
+    } /*****************************************************************
+     method that swaps two specified items
+     @param pos1 specified position for swapping item in list
+     @param pos2 specified position for swapping item in list
+     *****************************************************************/
     public String swapChar(int pos1, int pos2){
         Node<E> temp = top;
         Node<E> temp2 = top;
