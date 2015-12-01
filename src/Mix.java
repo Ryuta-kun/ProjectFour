@@ -13,12 +13,25 @@ import java.util.Scanner;
  @version November 2015
  *****************************************************************/
 public class Mix implements IMix {
+
+    //variable for the user message
     private LinkList<Character> message;
+
+    //variable for the commands
     private String commandos;
+
+    //variable for the clipboard function
     protected String clipBoard;
 
+    /*****************************************************************
+     Constructor that instantiates the message list and command string
+     *****************************************************************/
     public Mix(){
+
+        //setting message to a linklist of type characters
         message = new LinkList<Character>();
+
+        //setting commandos string to an empty string
         commandos = "";
     }
 
@@ -29,30 +42,40 @@ public class Mix implements IMix {
     @Override
     public void setInitialMessage(String message) {
         LinkList<Character> m = new LinkList<Character>();
+
+        //adds user message to the m linklist
         for (int i = 0; i < message.length(); i ++){
             m.addAtEnd(message.charAt(i));
         }
+
+        //set message to m
         this.message = m;
     }
 
     /*****************************************************************
-     Constructor that input user message into a LinkList
-     @param message the user inputted string
+     Constructor that takes user inputs as commands for modifying the message
+     @param command user inputted string
      *****************************************************************/
     @Override
     public String processCommand(String command){
+        //checks whether "b" command is entered
         if (command.charAt(0) == 'b') {
             try {
                 String str = "";
                 String undo = "";
                 LinkList<String> com = new LinkList<String>();
+                // puts command into linklist
                 for (String retval : command.split(" ")){
+
+                    //if "_" is used turns into a space
                     if (retval.contains("_")){
                         retval = retval.replace('_', ' ');
                     }
                     com.addAtEnd(retval);
 
                 }
+
+                //takes information
                 int num = Integer.parseInt(com.readList(2).getData());
                 for (int i = 0; i < com.readList(1).getData().length(); i++){
                     str = this.message.change(com.readList(1).getData().charAt(i), num++);
@@ -200,18 +223,34 @@ public class Mix implements IMix {
         out.close();
     }
 
+    /*****************************************************************
+     Gets user inputted message
+     @return message
+     *****************************************************************/
     public LinkList<Character> getMessage() {
         return message;
     }
 
+    /*****************************************************************
+     gets user inputted commands
+     @return commandos user inputted commands
+     *****************************************************************/
     public String getCommandos() {
         return commandos;
     }
 
+    /*****************************************************************
+     Adds new user inputted commands to the list of previously inputted commands
+     @return commandos string of previous commands along with the most recent command
+     *****************************************************************/
     public void setCommandos(String commandos) {
         this.commandos += commandos + "\n";
     }
 
+    /*****************************************************************
+     Main methond that starts the console program
+     @param args arguments of some sort I think
+     *****************************************************************/
     public static void main(String[] args){
         Mix m = new Mix();
 
@@ -224,7 +263,7 @@ public class Mix implements IMix {
         System.out.println("x & # \t\t" + "means cut to clipboard, starting at & to # (inclusive)");
         System.out.println("p # \t\t" + "means paste from clipboard, start at #");
         System.out.println("c & # \t\t" + "means copy to clipboard, starting at & to # (inclusive)");
-        System.out.println("'_' \t\t" + "to insert a space into the message use _");
+        System.out.println("'_' \t\t" + "to insert a space into the message use");
 
         System.out.print("s filename \t" + "means, to save off the set ");
         System.out.println("of undo commands into text file named \"filename\".");
