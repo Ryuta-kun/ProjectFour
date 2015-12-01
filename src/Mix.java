@@ -91,7 +91,7 @@ public class Mix implements IMix {
                 String[] values = command.split(" ");    //couldn't find another way to do it so
                 int start = Integer.parseInt(values[1]);  //should work for now. need another way to split
                 int end = Integer.parseInt(values[2]);    //these commands.
-                if ((this.message.count() - 1) >= end) {
+                if (((this.message.count() - 1) >= end) && (start <= end)) {
                     for (int i = start; i <= end; i++) {
                         str = this.message.delete(start);
                         clipBoard += this.message.getRemoved().getData().toString();
@@ -106,10 +106,10 @@ public class Mix implements IMix {
                     return str;
                 }else{
                     System.err.println("Command Unknown");
-                    return this.message.toString();
+                    throw new IllegalArgumentException();
                 }
             }catch(Exception b){
-                throw b;
+                return this.message.toString();
             }
         } else if (command.charAt(0) == 'p') {
             try {
@@ -137,8 +137,12 @@ public class Mix implements IMix {
                 String[] values = command.split(" ");    //couldn't find another way to do it so
                 int start = Integer.parseInt(values[1]);  //should work for now. need another way to split
                 int end = Integer.parseInt(values[2]);    //these commands.
-                String str = this.message.copy(start, end);
-                clipBoard = str;
+                if (start <= end) {
+                    String str = this.message.copy(start, end);
+                    clipBoard = str;
+                }else{
+                    throw new IllegalArgumentException();
+                }
                 return clipBoard;
             }catch(Exception b){
                 throw b;
@@ -254,10 +258,10 @@ public class Mix implements IMix {
                 }
             }else {
                 try {
-                overall = m.processCommand(cmessage);
-                System.out.println("\nMessage: \n");
-                m.setInitialMessage(overall);
-                m.showMessage();
+                    overall = m.processCommand(cmessage);
+                    System.out.println("\nMessage: \n");
+                    m.setInitialMessage(overall);
+                    m.showMessage();
                 } catch (Exception e) {
                     System.out.println("Command Unknown");
                 }
