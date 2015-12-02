@@ -93,7 +93,7 @@ public class UnMix implements IUnMix {
             String message = m.UnMixUsingFile(filename, userMessage);
             System.out.println("\nThe original message was: \n\t" + message);
         }catch(Exception e){
-            System.err.println("Either file was not found or something went wrong!");
+            System.out.println("Either file was not found or something went wrong!");
         }
     }
 }
