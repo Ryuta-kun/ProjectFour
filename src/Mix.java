@@ -89,7 +89,8 @@ public class Mix implements IMix {
 
                     //sets the undo command for the unmix file.
                     if (com.readList(1).getData().length() > 1) {
-                        int number = Integer.parseInt(com.readList(2).getData()) + (com.readList(1).getData().length() - 1);
+                        int number = Integer.parseInt(com.readList(2).getData())
+                                + (com.readList(1).getData().length() - 1);
                         undo = "x " + Integer.parseInt(com.readList(2).getData()) + " " + number;
                     } else {
                         undo = "r " + Integer.parseInt(com.readList(2).getData());
@@ -142,9 +143,12 @@ public class Mix implements IMix {
 
                 //splits each cut command values and saves it in each
                 //array available.
-                String[] values = command.split(" ");    //couldn't find another way to do it so
-                int start = Integer.parseInt(values[1]);  //should work for now. need another way to split
-                int end = Integer.parseInt(values[2]);    //these commands.
+                //couldn't find another way to do it so
+                //should work for now. need another way to split
+                //these commands.
+                String[] values = command.split(" ");
+                int start = Integer.parseInt(values[1]);
+                int end = Integer.parseInt(values[2]);
 
                 //if the end pointer is less than the count and is greater
                 //than or equals to the start, it will initiate with one
@@ -227,9 +231,12 @@ public class Mix implements IMix {
 
                 //splits each cut command values and saves it in each
                 //array available.
-                String[] values = command.split(" ");    //couldn't find another way to do it so
-                int start = Integer.parseInt(values[1]);  //should work for now. need another way to split
-                int end = Integer.parseInt(values[2]);    //these commands.
+                //couldn't find another way to do it so
+                //should work for now. need another way to split
+                //these commands.
+                String[] values = command.split(" ");
+                int start = Integer.parseInt(values[1]);
+                int end = Integer.parseInt(values[2]);
 
                 //initiates the following command if and only if the
                 //start pointer is less than the end pointer and greater
@@ -269,9 +276,12 @@ public class Mix implements IMix {
 
                 //splits each cut command values and saves it in each
                 //array available.
-                String[] values = command.split(" ");    //couldn't find another way to do it so
-                int num1 = Integer.parseInt(values[1]);  //should work for now. need another way to split
-                int num2 = Integer.parseInt(values[2]);    //these commands.
+                //couldn't find another way to do it so
+                //should work for now. need another way to split
+                //these commands.
+                String[] values = command.split(" ");
+                int num1 = Integer.parseInt(values[1]);
+                int num2 = Integer.parseInt(values[2]);
 
                 //initiates if and only if each num values are greater than
                 // 0 to prevent negative user inputs.
