@@ -10,21 +10,17 @@ import java.util.Scanner;
  * @version November 2015
  ************************************************************************/
 public class UnMix implements IUnMix {
-
-    /** Variable for the message that is put into the linklist*/
-    private LinkList<Character> message;
-
     /*********************************************************************
      * Constructor that instantiates the message into a list
      ********************************************************************/
     public UnMix(){
-        message = new LinkList<Character>();
     }
 
     @Override
     /*********************************************************************
      * Method that gets mixed message and the file to unmix the message
-     * @param filename file that contains the undo commands to revert message to original
+     * @param filename file that contains the undo commands to revert
+     * message to original
      * @param userMessage mixed message that is returned from the mix program
      * @return unmix original message before mixing it up
      ********************************************************************/
@@ -41,7 +37,6 @@ public class UnMix implements IUnMix {
         //provided as the usermessage on mix class -> pretty much did
         //the same thing so I guessed I could use this for easier process.
         mix.setInitialMessage(userMessage);
-        message = mix.getMessage();
 
         //sets the filename output extension if it was not provided
         if (!filename.contains(".txt")){
@@ -59,7 +54,8 @@ public class UnMix implements IUnMix {
                 commands.addfirst(str);
             }
 
-            //goes through the linked list and process each command to unmix the commands
+            //goes through the linked list and process each
+            //command to unmix the commands
             for (int i = 0; i < commands.count(); i++){
                 String s = commands.readList(i).getData();
                 unmix = mix.processCommand(s);
