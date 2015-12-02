@@ -5,6 +5,14 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+/*************************************************************************
+ * JUnit test for the mix command. We bunched up random codes and thought
+ * about all the possible errors as we could.
+ *
+ * @author Ryuta Hirano
+ * @author Lanndon Rose
+ * @version November 2015
+ ************************************************************************/
 public class MixTest {
 
     @Test
@@ -94,6 +102,15 @@ public class MixTest {
         message.setInitialMessage ("This is a secret message");
         String userMessage = null;
         userMessage = message.processCommand(" b a 0");
+        assertEquals("aThis is a secret message", userMessage);
+    }
+
+    @Test(expected = Exception.class)
+    public void testBCommandError10() {
+        Mix message = new Mix();
+        message.setInitialMessage ("This is a secret message");
+        String userMessage = null;
+        userMessage = message.processCommand(" b  0");
         assertEquals("aThis is a secret message", userMessage);
     }
 

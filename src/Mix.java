@@ -5,8 +5,8 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 /*************************************************************************
- * Graphical representation of a six sided die with various controls
- * over the appearance.  Current value is constrained between 1 and 6.
+ * Mix class for encoding a user input or string files into bits of
+ * characters.
  *
  * @author Ryuta Hirano
  * @author Lanndon Rose
@@ -76,12 +76,11 @@ public class Mix implements IMix {
                         retval = retval.replace('_', ' ');
                     }
                     com.addAtEnd(retval);
-
                 }
 
                 //takes information from the linked list
                 int num = Integer.parseInt(com.readList(2).getData());
-                if (num >= 0) {
+                if ((num >= 0) && (com.readList(1).getData().length() > 0)){
                     //adds each character strings (if more than one) to
                     //the list and addes them onto the String str variable
                     for (int i = 0; i < com.readList(1).getData().length(); i++) {
@@ -140,7 +139,6 @@ public class Mix implements IMix {
             try {
                 String str = "";
                 clipBoard = "";
-                String clips = "";
 
                 //splits each cut command values and saves it in each
                 //array available.
@@ -162,6 +160,8 @@ public class Mix implements IMix {
                         str = this.message.delete(start);
                         clipBoard += this.message.getRemoved().getData().toString();
                     }
+
+                    String clips = clipBoard;
 
                     //sets the space value as "_" if returns true
                     if (clipBoard.contains(" ")) {
