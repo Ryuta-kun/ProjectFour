@@ -56,11 +56,65 @@ public class UnMixTest {
     }
 
     @Test
-            (expected = Exception.class)
+    public void testScrambleMessage() {
+        Mix message = new Mix();
+        message.setInitialMessage ("This is a secret message");
+        String userMessage = null;
+        message.processCommand("b what 0");
+        message.processCommand("x 4 8");
+        message.processCommand("r 4");
+        message.processCommand("r 4");
+        message.processCommand("r 0");
+        message.processCommand("b W 0");
+        message.processCommand("b this_is 7");
+        message.processCommand("c 6 13");
+        message.processCommand("p 28");
+        userMessage = message.processCommand("x 7 13");
+        message.processCommand("s testIt2");
+
+        UnMix unMessage = new UnMix();
+        String original = unMessage.UnMixUsingFile("testIt2", userMessage);
+        assertEquals(original, "This is a secret message");
+    }
+
+    @Test
+    public void testScrambleMessage1() {
+        Mix message = new Mix();
+        message.setInitialMessage ("This is a secret message");
+        String userMessage = null;
+        message.processCommand("w 1 21");
+        message.processCommand("r 0");
+        message.processCommand("b W 0");
+        message.processCommand("w 21 2");
+        message.processCommand("w 1 2");
+        message.processCommand("w 3 15");
+        message.processCommand("b n 6");
+        message.processCommand("r 7");
+        message.processCommand("b the 8");
+        message.processCommand("c 0 0");
+        message.processCommand("p 12");
+        message.processCommand("r 11");
+        message.processCommand("b _ 11");
+        message.processCommand("b orld 13");
+        message.processCommand("c 2 2");
+        message.processCommand("p 18");
+        message.processCommand("p 30");
+        message.processCommand("r 31");
+        message.processCommand("c 22 23");
+        message.processCommand("p 19");
+        message.processCommand("x 21 34");
+        userMessage = message.processCommand("b _you_talking_about? 21");
+        message.processCommand("s testIt2");
+
+        UnMix unMessage = new UnMix();
+        String original = unMessage.UnMixUsingFile("testIt2", userMessage);
+        assertEquals(original, "This is a secret message");
+    }
+
+    @Test(expected = Exception.class)
     public void testException() {
        String userMessage = "";
         UnMix unMessage = new UnMix();
         String original = unMessage.UnMixUsingFile("test", userMessage);
-
     }
 }

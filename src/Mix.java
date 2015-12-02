@@ -140,6 +140,7 @@ public class Mix implements IMix {
             try {
                 String str = "";
                 clipBoard = "";
+                String clips = "";
 
                 //splits each cut command values and saves it in each
                 //array available.
@@ -164,13 +165,13 @@ public class Mix implements IMix {
 
                     //sets the space value as "_" if returns true
                     if (clipBoard.contains(" ")) {
-                        clipBoard = clipBoard.replace(' ', '_');
+                        clips = clipBoard.replace(' ', '_');
                     }
 
                     //sets the undo command by using the clipboard.
                     //here instead of paste, we used the "b" command to
                     //unmix the cut command
-                    String undo = "b " + clipBoard + " " + start;
+                    String undo = "b " + clips + " " + start;
                     setCommandos(undo);
                     return str;
                 }else{
@@ -292,7 +293,7 @@ public class Mix implements IMix {
                 throw e;
             }
         }
-        return this.message.toString();
+        throw new IllegalArgumentException();
     }
 
     /*********************************************************************
