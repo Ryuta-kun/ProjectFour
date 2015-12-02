@@ -1,6 +1,10 @@
-/**
- * Created by Lanndon on 11/15/2015.
- */
+/*************************************************************************
+ * Node class for the linklist
+ *
+ * @author Ryuta Hirano
+ * @author Lanndon Rose
+ * @version November 2015
+ ************************************************************************/
 public class Node<E> {
     public E data;
     public Node next;
