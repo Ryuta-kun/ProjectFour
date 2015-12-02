@@ -29,6 +29,10 @@ public class UnMix implements IUnMix {
      * @return unmix original message before mixing it up
      ********************************************************************/
     public String UnMixUsingFile(String filename, String userMessage) {
+        if (userMessage.trim().equals("")){
+            throw new IllegalArgumentException();
+        }
+
         String str;
         String unmix = userMessage;
         Mix mix = new Mix();
@@ -65,15 +69,13 @@ public class UnMix implements IUnMix {
         }
         // could not find file
         catch(FileNotFoundException error) {
-            System.err.println("File not found ");
             throw new IllegalArgumentException();
         }
 
         // problem reading the file
         catch(Exception error){
-            System.err.println("Oops!  Something went wrong.");
+            throw error;
         }
-        return null;
     }
 
     /*********************************************************************
@@ -87,9 +89,11 @@ public class UnMix implements IUnMix {
         String userMessage = sc.nextLine();
         System.out.println("\nEnter in the file to unmix message");
         String filename = sc.nextLine();
-        String message = m.UnMixUsingFile(filename, userMessage);
-        if (message != null) {
+        try {
+            String message = m.UnMixUsingFile(filename, userMessage);
             System.out.println("\nThe original message was: \n\t" + message);
+        }catch(Exception e){
+            System.err.println("Either file was not found or something went wrong!");
         }
     }
 }
