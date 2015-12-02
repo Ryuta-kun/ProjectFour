@@ -2,17 +2,32 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-/**
- * Created by Lanndon on 11/15/2015.
- */
+/*************************************************************************
+ * UnMix class that unmixes the mixed message output from the Mix program
+ *
+ * @author Ryuta Hirano
+ * @author Lanndon Rose
+ * @version November 2015
+ ************************************************************************/
 public class UnMix implements IUnMix {
+
+    /** Variable for the message that is put into the linklist*/
     private LinkList<Character> message;
 
+    /*********************************************************************
+     * Constructor that instantiates the message into a list
+     ********************************************************************/
     public UnMix(){
         message = new LinkList<Character>();
     }
 
     @Override
+    /*********************************************************************
+     * Method that gets mixed message and the file to unmix the message
+     * @param filename file that contains the undo commands to revert message to original
+     * @param userMessage mixed message that is returned from the mix program
+     * @return unmix original message before mixing it up
+     ********************************************************************/
     public String UnMixUsingFile(String filename, String userMessage) {
         String str;
         String unmix = userMessage;
@@ -61,6 +76,10 @@ public class UnMix implements IUnMix {
         return null;
     }
 
+    /*********************************************************************
+     *  Main method that starts the unmix program
+     * @param args arguments for main method
+     ********************************************************************/
     public static void main (String[] args){
         UnMix m = new UnMix();
         Scanner sc = new Scanner(System.in);

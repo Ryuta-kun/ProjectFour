@@ -36,7 +36,7 @@ public class Mix implements IMix {
     }
 
     /*********************************************************************
-     * Constructor that input user message into a LinkList
+     * Method that input user message into a LinkList
      * @param message the user inputted string
      ********************************************************************/
     @Override
@@ -53,7 +53,7 @@ public class Mix implements IMix {
     }
 
     /*********************************************************************
-     * Constructor that takes user inputs as commands for
+     * Method that takes user inputs as commands for
      * modifying the message
      * @param command user inputted string
      * @return - returns a string with values associated with each
@@ -306,9 +306,9 @@ public class Mix implements IMix {
     }
 
     /*********************************************************************
-     * Saves the lists of undo commands in a file.
-     * @param str
-     * @param filename
+     * Method that saves the lists of undo commands in a file.
+     * @param str String of undo commands that will be saved
+     * @param filename name of the file the string str will be saved as
      ********************************************************************/
     public void save (String str, String filename) {
         if (!filename.contains(".txt")){
@@ -327,15 +327,15 @@ public class Mix implements IMix {
     }
 
     /*********************************************************************
-     * Gets user inputted message
-     * @return message
+     * Method that gets user inputted message
+     * @return message the user inputted message
      ********************************************************************/
     public LinkList<Character> getMessage() {
         return message;
     }
 
     /*********************************************************************
-     * gets user inputted commands
+     * Method that gets user inputted commands
      * @return commandos user inputted commands
      ********************************************************************/
     public String getCommandos() {
@@ -343,7 +343,7 @@ public class Mix implements IMix {
     }
 
     /*********************************************************************
-     * Adds new user inputted commands to the list of previously
+     * Method that adds new user inputted commands to the list of previously
      * inputted commands
      * @return commandos string of previous commands along with the
      * most recent command
@@ -353,8 +353,8 @@ public class Mix implements IMix {
     }
 
     /*********************************************************************
-     * Main methond that starts the console program
-     * @param args arguments of some sort I think
+     * Main method that starts the Message mixing program
+     * @param args arguments from main method
      ********************************************************************/
     public static void main(String[] args){
         Mix m = new Mix();
